@@ -4,7 +4,6 @@ import { createPortal } from 'preact/compat';
 import { ChordDiagram } from './ChordDiagram';
 import { getChordDiagram } from '../data/chords';
 import { useChordContext } from '../context/ChordContext';
-import { useLenis } from './LenisManager';
 
 interface ChordTooltipProps {
   /** Chord name to display */
@@ -21,8 +20,7 @@ export const ChordTooltip = memo(function ChordTooltip({
   chordName,
   isPinned,
 }: ChordTooltipProps) {
-  const { activePosition, unpinChord, setHoveredChord } = useChordContext();
-  const { lenis } = useLenis();
+  const { activePosition, unpinChord } = useChordContext();
   const tooltipRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState<{ x: number; y: number } | null>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -72,21 +70,7 @@ export const ChordTooltip = memo(function ChordTooltip({
     });
   }, [activePosition]);
 
-  // Hide on scroll to prevent detached tooltips
-  useEffect(() => {
-    if (!lenis || !activePosition) return;
-
-    const onScroll = () => {
-       if (activePosition && !isPinned) {
-           setHoveredChord(null);
-       }
-    };
-
-    lenis.on('scroll', onScroll);
-    return () => {
-      lenis.off('scroll', onScroll);
-    };
-  }, [lenis, activePosition, isPinned, setHoveredChord]);
+  if (!activePosition || !chordData) return null;
 
   const tooltipContent = (
     <div
