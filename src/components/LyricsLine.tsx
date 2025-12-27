@@ -30,7 +30,7 @@ export const LyricsLine = memo(function LyricsLine({ line }: LyricsLineProps) {
       {/* Chords row */}
       {sortedChords.length > 0 && (
         <div
-          class="font-mono text-base h-6 whitespace-pre"
+          class="font-mono h-[1.5em] whitespace-pre"
           role="group"
           aria-label="Chord progression"
         >
@@ -51,7 +51,7 @@ export const LyricsLine = memo(function LyricsLine({ line }: LyricsLineProps) {
 
       {/* Lyrics row */}
       {lyrics && (
-        <div class="font-mono text-base text-[var(--color-text)] whitespace-pre-wrap">
+        <div class="font-mono text-[var(--color-text)] whitespace-pre-wrap">
           {lyrics}
         </div>
       )}

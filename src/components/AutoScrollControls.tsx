@@ -6,7 +6,7 @@ import { getAutoScrollSpeed, setAutoScrollSpeed } from '../services/song-prefere
 const BASE_SPEED_PPS = 50;
 
 // Available speed multipliers
-const SPEED_OPTIONS = [0.1, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 2, 3, 5, 10];
+const SPEED_OPTIONS = [0.1, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 2, 3];
 
 export function AutoScrollControls() {
   const { lenis } = useLenis();
@@ -14,9 +14,6 @@ export function AutoScrollControls() {
   const [speedMultiplier, setSpeedMultiplier] = useState(() => getAutoScrollSpeed());
   const [isSpeedMenuOpen, setIsSpeedMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  
-  // Track if scroll event was triggered by our autoscroll
-  const isAutoScrolling = useRef(false);
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -53,60 +50,62 @@ export function AutoScrollControls() {
     if (!lenis) return;
 
     if (isPlaying) {
-      const startAutoScroll = () => {
-         // Calculate remaining distance
-         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-         const currentScroll = lenis.scroll;
-         const remainingDistance = maxScroll - currentScroll;
-         
-         if (remainingDistance <= 1) {
-           setIsPlaying(false);
-           return;
-         }
+      const startScrolling = () => {
+        // Recalculate duration/target
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const currentScroll = lenis.scroll;
+        const remainingDistance = maxScroll - currentScroll;
+        
+        if (remainingDistance <= 1) {
+          setIsPlaying(false);
+          return;
+        }
 
-         const pps = BASE_SPEED_PPS * speedMultiplier;
-         const duration = remainingDistance / pps;
+        const pps = BASE_SPEED_PPS * speedMultiplier;
+        const duration = remainingDistance / pps;
 
-         isAutoScrolling.current = true;
-         lenis.scrollTo(maxScroll, {
-           duration: duration,
-           easing: (t) => t, // Linear easing for constant speed
-           lock: false,
-           force: false,
-           onComplete: () => {
-             setIsPlaying(false);
-             isAutoScrolling.current = false;
-           }
-         });
+        lenis.scrollTo(maxScroll, {
+          duration: duration,
+          easing: (t) => t, // Linear
+          lock: false,
+          force: false,
+          onComplete: () => {
+             // Only stop if we really reached the end (approx)
+             if (Math.abs(lenis.scroll - maxScroll) < 5) {
+                 setIsPlaying(false);
+             }
+          }
+        });
       };
+
+      startScrolling();
       
-      startAutoScroll();
-      
+      const onResize = () => {
+          // Restart scroll to adjust to new viewport height (URL bar)
+          startScrolling();
+      };
+
       const stopOnInteraction = () => {
-          // If we are playing, check if this interaction should stop it.
-          // For wheel/touch, yes.
-          // For keydown, only if it causes scroll? simplified: yes for any navigation key.
           if (isPlaying) {
               setIsPlaying(false);
-              lenis.stop();
-              lenis.start();
+              lenis.stop(); // Stop current animation
+              lenis.start(); // Resume instance
           }
       };
 
+      window.addEventListener('resize', onResize);
       window.addEventListener('wheel', stopOnInteraction);
       window.addEventListener('touchstart', stopOnInteraction);
       window.addEventListener('keydown', stopOnInteraction);
 
       return () => {
+         window.removeEventListener('resize', onResize);
          window.removeEventListener('wheel', stopOnInteraction);
          window.removeEventListener('touchstart', stopOnInteraction);
          window.removeEventListener('keydown', stopOnInteraction);
          lenis.stop();
          lenis.start();
       };
-    } else {
-        lenis.stop();
-        lenis.start();
     }
   }, [isPlaying, speedMultiplier, lenis]);
 
@@ -137,7 +136,10 @@ export function AutoScrollControls() {
   if (!lenis) return null;
 
   return (
-    <div class="fixed bottom-6 left-0 right-0 z-50 pointer-events-none px-4 sm:px-6 lg:px-8">
+    <div 
+      class="fixed left-0 right-0 z-50 pointer-events-none px-4 sm:px-6 lg:px-8 transition-[bottom] duration-200"
+      style={{ bottom: 'calc(1.5rem + env(safe-area-inset-bottom))' }}
+    >
       <div class="max-w-3xl mx-auto flex justify-end">
         <div 
           class="pointer-events-auto flex items-center gap-2 p-1.5 rounded-full bg-[var(--color-surface)]/80 backdrop-blur-md border border-[var(--color-border)] shadow-lg transition-transform hover:scale-[1.02]"

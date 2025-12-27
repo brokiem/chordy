@@ -44,7 +44,7 @@ function AppContent() {
   const activeChord = pinnedChord ?? hoveredChord;
 
   return (
-    <div class="min-h-screen bg-[var(--color-bg)]">
+    <div class="min-h-[100dvh] bg-[var(--color-bg)]">
       {/* Header - sticky on mobile */}
       <header class="sticky top-0 z-40 bg-[var(--color-bg)]/95 backdrop-blur-sm border-b border-[var(--color-border)]">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-3">
