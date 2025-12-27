@@ -1,46 +1,43 @@
 import { useState, useMemo, useEffect } from 'preact/hooks';
 import { ChordProvider, useChordContext } from './context/ChordContext';
+import { ToastProvider } from './context/ToastContext';
 import { SongViewer } from './components/SongViewer';
 import { SongSelector } from './components/SongSelector';
+import { SongUploader } from './components/SongUploader';
 import { ChordTooltip } from './components/ChordTooltip';
+import { ToastContainer } from './components/ToastContainer';
 import { songs } from './data/songs';
-
-const STORAGE_KEY = 'chordy-selected-song';
-
-/**
- * Get initial song ID from localStorage or fallback to first song
- */
-function getInitialSongId(): string {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored && songs.some((s) => s.id === stored)) {
-      return stored;
-    }
-  } catch {
-    // localStorage not available
-  }
-  return songs[0]?.id ?? '';
-}
+import { getCustomSongs } from './services/custom-songs.service';
+import { getInitialSongId, setSelectedSongId as saveSelectedSongId } from './services/song-preferences.service';
+import type { Song } from './types';
 
 /**
  * Inner app content with access to chord context.
  */
 function AppContent() {
-  const [selectedSongId, setSelectedSongId] = useState(getInitialSongId);
+  const [customSongs, setCustomSongs] = useState<Song[]>(() => getCustomSongs());
   const { pinnedChord, hoveredChord } = useChordContext();
+
+  // Merge hardcoded songs with custom songs
+  const allSongs = useMemo(() => {
+    return [...songs, ...customSongs];
+  }, [customSongs]);
+
+  const [selectedSongId, setSelectedSongId] = useState(() => getInitialSongId(allSongs));
 
   // Save to localStorage when selection changes
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, selectedSongId);
-    } catch {
-      // localStorage not available
-    }
+    saveSelectedSongId(selectedSongId);
   }, [selectedSongId]);
 
+  // Handle custom songs update
+  const handleSongsUpdated = () => {
+    setCustomSongs(getCustomSongs());
+  };
+
   const selectedSong = useMemo(
-    () => songs.find((s) => s.id === selectedSongId) ?? songs[0],
-    [selectedSongId]
+    () => allSongs.find((s) => s.id === selectedSongId) ?? allSongs[0],
+    [selectedSongId, allSongs]
   );
 
   // Active chord for tooltip (pinned takes priority over hovered)
@@ -81,12 +78,18 @@ function AppContent() {
               </span>
             </div>
 
-            {/* Song selector */}
-            <SongSelector
-              songs={songs}
-              selectedId={selectedSongId}
-              onSelect={setSelectedSongId}
-            />
+            {/* Song selector and upload */}
+            <div class="flex items-center gap-2">
+              <SongSelector
+                songs={allSongs}
+                selectedId={selectedSongId}
+                onSelect={setSelectedSongId}
+              />
+              <SongUploader
+                allSongs={allSongs}
+                onSongsUpdated={handleSongsUpdated}
+              />
+            </div>
           </div>
         </div>
       </header>
@@ -104,27 +107,22 @@ function AppContent() {
         />
       )}
 
-      {/* Footer */}
-      {/* <footer class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-auto">
-        <div class="border-t border-[var(--color-border)] pt-6">
-          <p class="text-center text-xs text-[var(--color-text-muted)]">
-            <span class="hidden sm:inline">Hover over chords to see diagrams • Click to pin</span>
-            <span class="sm:hidden">Tap chords to see diagrams</span>
-          </p>
-        </div>
-      </footer> */}
+      {/* Global toast notifications */}
+      <ToastContainer />
     </div>
   );
 }
 
 /**
  * Root application component.
- * Wraps content in ChordProvider for global chord state management.
+ * Wraps content in providers for global state management.
  */
 export function App() {
   return (
-    <ChordProvider>
-      <AppContent />
-    </ChordProvider>
+    <ToastProvider>
+      <ChordProvider>
+        <AppContent />
+      </ChordProvider>
+    </ToastProvider>
   );
 }

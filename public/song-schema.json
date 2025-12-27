@@ -1,0 +1,220 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Chordy Song Schema",
+    "description": "JSON schema for chord chart songs in Chordy. Use this as a reference when creating custom song files.",
+    "type": "object",
+    "required": [
+        "id",
+        "title",
+        "artist",
+        "lines"
+    ],
+    "properties": {
+        "id": {
+            "type": "string",
+            "description": "REQUIRED. Unique identifier for the song. Use lowercase with hyphens (e.g., 'wonderwall-oasis'). Must be unique across all songs.",
+            "pattern": "^[a-z0-9-]+$",
+            "minLength": 1,
+            "examples": [
+                "wonderwall",
+                "hotel-california",
+                "dont-stop-believing"
+            ]
+        },
+        "title": {
+            "type": "string",
+            "description": "REQUIRED. The song title as it will appear in the song selector.",
+            "minLength": 1,
+            "examples": [
+                "Wonderwall",
+                "Hotel California",
+                "Don't Stop Believing"
+            ]
+        },
+        "artist": {
+            "type": "string",
+            "description": "REQUIRED. Artist or band name.",
+            "minLength": 1,
+            "examples": [
+                "Oasis",
+                "Eagles",
+                "Journey"
+            ]
+        },
+        "key": {
+            "type": "string",
+            "description": "OPTIONAL. Musical key of the song (e.g., 'G', 'Am', 'C#'). Displayed in the song header.",
+            "examples": [
+                "G",
+                "Am",
+                "C",
+                "D",
+                "E",
+                "F#",
+                "Bb"
+            ]
+        },
+        "lines": {
+            "type": "array",
+            "description": "REQUIRED. Array of all song lines including lyrics, chords, and sections (intro, verse, chorus, etc.).",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "required": [
+                    "lyrics",
+                    "chords"
+                ],
+                "properties": {
+                    "lyrics": {
+                        "type": "string",
+                        "description": "The lyrics text for this line. Use empty string for blank lines. Use '[Section]' format for section markers like '[Intro]', '[Verse 1]', '[Chorus]', '[Bridge]', '[Outro]'.",
+                        "examples": [
+                            "Today is gonna be the day",
+                            "[Chorus]",
+                            "",
+                            "I said maybe"
+                        ]
+                    },
+                    "chords": {
+                        "type": "array",
+                        "description": "Array of chord positions for this line. Use empty array [] for lines without chords (blank lines, some section markers).",
+                        "items": {
+                            "type": "object",
+                            "required": [
+                                "name",
+                                "position"
+                            ],
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "description": "Chord name exactly as it should appear (e.g., 'G', 'Am7', 'Cmaj7', 'F#m'). Supports standard chord notation.",
+                                    "minLength": 1,
+                                    "examples": [
+                                        "G",
+                                        "Am",
+                                        "C",
+                                        "Dsus4",
+                                        "Em7",
+                                        "F#m",
+                                        "Bbmaj7"
+                                    ]
+                                },
+                                "position": {
+                                    "type": "integer",
+                                    "description": "Character index where the chord appears above the lyrics. 0 = first character. IMPORTANT: Count carefully to align chords properly above the correct syllables.",
+                                    "minimum": 0,
+                                    "examples": [
+                                        0,
+                                        5,
+                                        12,
+                                        20
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "examples": [
+        {
+            "_comment": "Example 1: Simple song with intro and verse",
+            "id": "example-song",
+            "title": "Example Song",
+            "artist": "Example Artist",
+            "key": "G",
+            "lines": [
+                {
+                    "lyrics": "[Intro]",
+                    "chords": [
+                        {
+                            "name": "G",
+                            "position": 0
+                        },
+                        {
+                            "name": "D",
+                            "position": 10
+                        },
+                        {
+                            "name": "Em",
+                            "position": 20
+                        }
+                    ]
+                },
+                {
+                    "lyrics": "",
+                    "chords": []
+                },
+                {
+                    "lyrics": "This is an example line with chords",
+                    "chords": [
+                        {
+                            "name": "G",
+                            "position": 0
+                        },
+                        {
+                            "name": "D",
+                            "position": 20
+                        }
+                    ]
+                },
+                {
+                    "lyrics": "Another line continues the song",
+                    "chords": [
+                        {
+                            "name": "Em",
+                            "position": 0
+                        },
+                        {
+                            "name": "C",
+                            "position": 15
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "_comment": "Example 2: How to position chords - align them above the syllable where chord changes",
+            "id": "positioning-example",
+            "title": "Chord Positioning Guide",
+            "artist": "Tutorial",
+            "lines": [
+                {
+                    "_comment": "The G chord is at position 0 (first character), D is at position 14 (above 'forever')",
+                    "lyrics": "And I'd give up forever to touch you",
+                    "chords": [
+                        {
+                            "name": "G",
+                            "position": 0
+                        },
+                        {
+                            "name": "D",
+                            "position": 14
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "_instructions": {
+        "how_to_create": [
+            "1. Start with the required fields: id, title, artist, and lines array",
+            "2. Create a unique ID using lowercase and hyphens (e.g., 'song-name')",
+            "3. Add each line of your song to the lines array",
+            "4. For each line, specify the lyrics text and chord positions",
+            "5. To position a chord, count the character index (0-based) where it should appear",
+            "6. Use '[Section]' format for section markers (e.g., '[Intro]', '[Verse 1]', '[Chorus]')",
+            "7. Use empty lyrics '' and empty chords [] for blank lines between sections",
+            "8. Save as a .json file and upload to Chordy"
+        ],
+        "tips": [
+            "• Test your JSON syntax at jsonlint.com before uploading",
+            "• Chord positions are 0-indexed (first character is position 0)",
+            "• Align chords above the syllable where the chord change occurs",
+            "• Use consistent section naming ([Verse 1], [Verse 2], etc.)",
+            "• Add blank lines between sections for better readability",
+            "• The 'key' field is optional but helpful for musicians"
+        ]
+    }
+}

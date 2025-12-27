@@ -1,0 +1,136 @@
+{
+    "id": "test-song-example",
+    "title": "Test Song (Upload Me!)",
+    "artist": "Test Artist",
+    "key": "C",
+    "lines": [
+        {
+            "lyrics": "[Intro]",
+            "chords": [
+                {
+                    "name": "C",
+                    "position": 0
+                },
+                {
+                    "name": "G",
+                    "position": 10
+                },
+                {
+                    "name": "Am",
+                    "position": 20
+                },
+                {
+                    "name": "F",
+                    "position": 30
+                }
+            ]
+        },
+        {
+            "lyrics": "",
+            "chords": []
+        },
+        {
+            "lyrics": "[Verse 1]",
+            "chords": []
+        },
+        {
+            "lyrics": "This is a test song to verify upload",
+            "chords": [
+                {
+                    "name": "C",
+                    "position": 0
+                },
+                {
+                    "name": "G",
+                    "position": 20
+                }
+            ]
+        },
+        {
+            "lyrics": "It demonstrates the chord positioning system",
+            "chords": [
+                {
+                    "name": "Am",
+                    "position": 0
+                },
+                {
+                    "name": "F",
+                    "position": 25
+                }
+            ]
+        },
+        {
+            "lyrics": "Each chord appears above the right syllable",
+            "chords": [
+                {
+                    "name": "C",
+                    "position": 5
+                },
+                {
+                    "name": "G",
+                    "position": 28
+                }
+            ]
+        },
+        {
+            "lyrics": "",
+            "chords": []
+        },
+        {
+            "lyrics": "[Chorus]",
+            "chords": []
+        },
+        {
+            "lyrics": "Upload me to test the feature",
+            "chords": [
+                {
+                    "name": "F",
+                    "position": 0
+                },
+                {
+                    "name": "G",
+                    "position": 18
+                }
+            ]
+        },
+        {
+            "lyrics": "Drag and drop or click to select",
+            "chords": [
+                {
+                    "name": "Am",
+                    "position": 0
+                },
+                {
+                    "name": "C",
+                    "position": 21
+                }
+            ]
+        },
+        {
+            "lyrics": "The JSON schema helps you format",
+            "chords": [
+                {
+                    "name": "F",
+                    "position": 4
+                },
+                {
+                    "name": "G",
+                    "position": 25
+                }
+            ]
+        },
+        {
+            "lyrics": "Your custom chord charts perfectly",
+            "chords": [
+                {
+                    "name": "C",
+                    "position": 5
+                },
+                {
+                    "name": "G",
+                    "position": 18
+                }
+            ]
+        }
+    ]
+}
