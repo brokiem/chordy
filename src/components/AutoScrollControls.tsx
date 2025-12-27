@@ -82,7 +82,7 @@ export function AutoScrollControls() {
       
       startAutoScroll();
       
-      const stopOnInteraction = (e: Event) => {
+      const stopOnInteraction = () => {
           // If we are playing, check if this interaction should stop it.
           // For wheel/touch, yes.
           // For keydown, only if it causes scroll? simplified: yes for any navigation key.

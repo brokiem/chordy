@@ -84,8 +84,8 @@ export const ChordTooltip = memo(function ChordTooltip({
         ${!isPinned ? 'pointer-events-none' : ''}
       `}
       style={{
-        left: position?.x ?? activePosition.x,
-        top: position?.y ?? activePosition.y,
+        left: position?.x ?? activePosition!.x,
+        top: position?.y ?? activePosition!.y,
         opacity: isVisible && position ? 1 : 0,
         transform: isVisible && position ? 'translateY(0)' : 'translateY(-6px)',
         transition: 'opacity 180ms cubic-bezier(0.4, 0, 0.2, 1), transform 180ms cubic-bezier(0.4, 0, 0.2, 1)',
@@ -129,7 +129,7 @@ export const ChordTooltip = memo(function ChordTooltip({
 
       {/* Chord diagram */}
       <div class="text-[var(--color-text)] px-3 py-3">
-        <ChordDiagram chord={chordData} size={140} />
+        <ChordDiagram chord={chordData!} size={140} />
       </div>
     </div>
   );
