@@ -12,7 +12,7 @@ interface SongViewerProps {
  * Shows song metadata and renders all lyrics lines with chords.
  */
 export const SongViewer = memo(function SongViewer({ song }: SongViewerProps) {
-  const { title, artist, key, lines } = song;
+  const { lines } = song;
 
   return (
     <article class="w-full max-w-3xl mx-auto">
