@@ -1,6 +1,7 @@
 import type { Song } from '../types';
 import { andaikanKauDatang } from './songs/andaikan-kau-datang';
 import { iris } from './songs/iris';
+import { morningLight } from './songs/morning-light';
 
 /**
  * Song collection with chord charts.
@@ -10,6 +11,7 @@ import { iris } from './songs/iris';
 export const songs: Song[] = [
   andaikanKauDatang,
   iris,
+  morningLight,
 ];
 
 /**
