@@ -113,6 +113,8 @@ function AppContent() {
   );
 }
 
+import { LenisManager } from './components/LenisManager';
+
 /**
  * Root application component.
  * Wraps content in providers for global state management.
@@ -121,7 +123,9 @@ export function App() {
   return (
     <ToastProvider>
       <ChordProvider>
-        <AppContent />
+        <LenisManager>
+          <AppContent />
+        </LenisManager>
       </ChordProvider>
     </ToastProvider>
   );

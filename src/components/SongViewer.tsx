@@ -1,6 +1,7 @@
 import { memo } from 'preact/compat';
 import type { Song } from '../types';
 import { LyricsLine } from './LyricsLine';
+import { AutoScrollControls } from './AutoScrollControls';
 
 interface SongViewerProps {
   /** Song data to display */
@@ -41,6 +42,8 @@ export const SongViewer = memo(function SongViewer({ song }: SongViewerProps) {
           <LyricsLine key={index} line={line} />
         ))}
       </div>
+      
+      <AutoScrollControls />
     </article>
   );
 });
