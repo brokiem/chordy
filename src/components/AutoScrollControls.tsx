@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'preact/hooks';
+import { createPortal } from 'preact/compat';
 import { useLenis } from './LenisManager';
 import { getAutoScrollSpeed, setAutoScrollSpeed } from '../services/song-preferences.service';
 
@@ -135,7 +136,7 @@ export function AutoScrollControls() {
 
   if (!lenis) return null;
 
-  return (
+  return createPortal(
     <div 
       class="fixed left-0 right-0 z-50 pointer-events-none px-4 sm:px-6 lg:px-8 transition-[bottom] duration-200"
       style={{ bottom: 'calc(1.5rem + env(safe-area-inset-bottom))' }}
@@ -236,6 +237,7 @@ export function AutoScrollControls() {
       </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
