@@ -303,7 +303,12 @@ export const SongUploader = memo(function SongUploader({
                 <h4 class="text-xs font-semibold text-[var(--color-text-muted)] mb-2">
                   Custom Songs ({customSongs.length})
                 </h4>
-                <div class="space-y-2 max-h-48 overflow-y-auto">
+                <div 
+                  class="space-y-2 max-h-48 overflow-y-auto overscroll-contain"
+                  data-lenis-prevent
+                  onWheel={(e) => e.stopPropagation()}
+                  onTouchMove={(e) => e.stopPropagation()}
+                >
                   {customSongs.map((song) => (
                     <div
                       key={song.id}

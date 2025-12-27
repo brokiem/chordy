@@ -12,7 +12,7 @@
   --color-chord: #60a5fa;
   --color-chord-hover: #93c5fd;
   --color-chord-pinned: #f59e0b;
-  --color-accent: #3b82f6;
+  --color-accent: oklch(54.6% 0.245 262.881);
 
   /* Typography */
   --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;

@@ -147,7 +147,7 @@ export function AutoScrollControls() {
         onClick={() => setIsPlaying(!isPlaying)}
         class={`p-3 rounded-full transition-colors flex items-center justify-center ${
           isPlaying 
-            ? 'bg-[var(--color-accent)] text-white hover:bg-blue-600' 
+            ? 'bg-[var(--color-accent)] text-white hover:opacity-90' 
             : 'bg-[var(--color-surface-hover)] text-[var(--color-text)] hover:bg-[var(--color-border)]'
         }`}
         title={isPlaying ? "Pause Autoscroll" : "Start Autoscroll"}
