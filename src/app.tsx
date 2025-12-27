@@ -47,10 +47,10 @@ function AppContent() {
     <div class="min-h-screen bg-[var(--color-bg)]">
       {/* Header - sticky on mobile */}
       <header class="sticky top-0 z-40 bg-[var(--color-bg)]/95 backdrop-blur-sm border-b border-[var(--color-border)]">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-3">
+          <div class="flex flex-col items-center sm:flex-row sm:justify-between gap-3">
             {/* Logo and branding */}
-            <div class="flex items-center gap-2.5">
+            <div class="flex items-center gap-2.5 min-w-0">
               <svg
                 width="24"
                 height="24"
@@ -79,12 +79,14 @@ function AppContent() {
             </div>
 
             {/* Song selector and upload */}
-            <div class="flex items-center gap-2">
-              <SongSelector
-                songs={allSongs}
-                selectedId={selectedSongId}
-                onSelect={setSelectedSongId}
-              />
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+              <div class="flex-1 sm:flex-none min-w-0">
+                <SongSelector
+                  songs={allSongs}
+                  selectedId={selectedSongId}
+                  onSelect={setSelectedSongId}
+                />
+              </div>
               <SongUploader
                 allSongs={allSongs}
                 onSongsUpdated={handleSongsUpdated}
@@ -95,7 +97,7 @@ function AppContent() {
       </header>
 
       {/* Main content */}
-      <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-32">
         {selectedSong && <SongViewer song={selectedSong} />}
       </main>
 

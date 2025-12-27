@@ -79,7 +79,7 @@ export const ChordTooltip = memo(function ChordTooltip({
         fixed z-50 flex flex-col items-center
         bg-[var(--color-surface)]/95 backdrop-blur-sm
         border border-[var(--color-border)]
-        rounded-xl shadow-[var(--shadow-tooltip)]
+        rounded-[var(--radius)] shadow-[var(--shadow-tooltip)]
         overflow-hidden
         ${!isPinned ? 'pointer-events-none' : ''}
       `}

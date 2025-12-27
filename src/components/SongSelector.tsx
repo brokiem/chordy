@@ -55,10 +55,10 @@ export const SongSelector = memo(function SongSelector({
       <button
         onClick={() => setIsOpen(!isOpen)}
         class="
-          relative w-full sm:w-auto min-w-[50px]
+          relative w-full sm:w-auto min-w-[75px]
           bg-[var(--color-surface)] text-[var(--color-text)]
           border border-[var(--color-border)]
-          rounded-lg px-4 py-2.5 pr-10
+          rounded-[var(--radius)] px-3 py-2 pr-10 h-9 flex items-center
           text-sm font-medium text-left
           cursor-pointer
           transition-all duration-150
@@ -99,12 +99,12 @@ export const SongSelector = memo(function SongSelector({
       {/* Dropdown menu */}
       <div
         class={`
-          absolute z-50 mt-2 right-0 sm:left-0 sm:right-auto w-full min-w-[275px]
+          absolute z-50 mt-2 right-0 sm:left-0 sm:right-auto w-full min-w-[75px]
           max-h-60 overflow-auto overscroll-contain
           bg-[var(--color-surface)]/95 backdrop-blur-sm
           border border-[var(--color-border)]
-          rounded-xl shadow-lg
-          py-1.5
+          rounded-[var(--radius)] shadow-lg
+          p-1
           origin-top
           transition-all duration-150 ease-out
           ${isOpen 
@@ -127,7 +127,7 @@ export const SongSelector = memo(function SongSelector({
               aria-selected={isSelected}
               class={`
                 relative w-full cursor-pointer select-none
-                px-4 py-2.5 text-left
+                px-2 py-1.5 text-left rounded-sm text-sm
                 transition-colors duration-100
                 hover:bg-[var(--color-surface-hover)]
                 ${isSelected ? 'text-[var(--color-chord)]' : 'text-[var(--color-text)]'}

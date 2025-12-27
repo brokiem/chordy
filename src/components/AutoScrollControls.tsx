@@ -137,15 +137,17 @@ export function AutoScrollControls() {
   if (!lenis) return null;
 
   return (
-    <div 
-      class="fixed bottom-6 right-6 z-50 flex items-center gap-3 p-3 rounded-full bg-[var(--color-surface)]/80 backdrop-blur-md border border-[var(--color-border)] shadow-lg transition-transform hover:scale-[1.02]"
-      role="region"
-      aria-label="Autoscroll controls"
-    >
+    <div class="fixed bottom-6 left-0 right-0 z-50 pointer-events-none px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto flex justify-end">
+        <div 
+          class="pointer-events-auto flex items-center gap-2 p-1.5 rounded-full bg-[var(--color-surface)]/80 backdrop-blur-md border border-[var(--color-border)] shadow-lg transition-transform hover:scale-[1.02]"
+          role="region"
+          aria-label="Autoscroll controls"
+        >
       {/* Play/Pause Button */}
       <button
         onClick={() => setIsPlaying(!isPlaying)}
-        class={`p-3 rounded-full transition-colors flex items-center justify-center ${
+        class={`h-8 w-8 rounded-full transition-colors flex items-center justify-center ${
           isPlaying 
             ? 'bg-[var(--color-accent)] text-white hover:opacity-90' 
             : 'bg-[var(--color-surface-hover)] text-[var(--color-text)] hover:bg-[var(--color-border)]'
@@ -164,14 +166,14 @@ export function AutoScrollControls() {
       </button>
 
       {/* Speed Controls */}
-      <div class="flex items-center gap-2 px-2 relative" ref={menuRef}>
+      <div class="flex items-center gap-1 px-1 relative" ref={menuRef}>
         <button
           onClick={decreaseSpeed}
-          class="p-1 text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors disabled:opacity-50"
+          class="h-7 w-7 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface-hover)] rounded-full transition-colors disabled:opacity-50"
           disabled={speedMultiplier <= SPEED_OPTIONS[0]}
           title="Decrease Speed"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M20 12H4" />
           </svg>
         </button>
@@ -179,13 +181,13 @@ export function AutoScrollControls() {
         <div class="relative">
             <button 
                 onClick={() => setIsSpeedMenuOpen(!isSpeedMenuOpen)}
-                class="flex items-center gap-0.5 font-mono text-sm pl-2 pr-1 py-0.5 text-center hover:bg-[var(--color-surface-hover)] rounded transition-colors group"
+                class="flex items-center gap-0.5 font-mono text-xs font-semibold pl-2 pr-1 py-1 text-center hover:bg-[var(--color-surface-hover)] rounded-md transition-colors group min-w-[50px] justify-between"
                 title="Select Speed"
             >
               <span>{speedMultiplier}x</span>
               <svg 
-                width="12" 
-                height="12" 
+                width="10" 
+                height="10" 
                 viewBox="0 0 24 24" 
                 fill="none" 
                 stroke="currentColor" 
@@ -221,14 +223,16 @@ export function AutoScrollControls() {
 
         <button
           onClick={increaseSpeed}
-          class="p-1 text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors disabled:opacity-50"
+          class="h-7 w-7 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface-hover)] rounded-full transition-colors disabled:opacity-50"
           disabled={speedMultiplier >= SPEED_OPTIONS[SPEED_OPTIONS.length - 1]}
           title="Increase Speed"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 5v14M5 12h14" />
           </svg>
         </button>
+      </div>
+        </div>
       </div>
     </div>
   );

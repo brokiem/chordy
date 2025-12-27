@@ -99,7 +99,7 @@ const ToastItem = memo(function ToastItem({ toast, onRemove }: ToastItemProps) {
       <div
         class={`
           flex items-start gap-3
-          px-4 py-3 rounded-lg shadow-xl
+          px-4 py-3 rounded-[var(--radius)] shadow-xl
           max-w-sm min-w-[280px]
           backdrop-blur-sm
           origin-top-right

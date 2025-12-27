@@ -162,7 +162,7 @@ export const SongUploader = memo(function SongUploader({
           class="
             relative
             bg-[var(--color-accent)] text-white
-            rounded-lg px-2.5 py-2.5
+            rounded-[var(--radius)] h-9 w-9
             cursor-pointer
             transition-all duration-150
             hover:opacity-90
@@ -204,8 +204,8 @@ export const SongUploader = memo(function SongUploader({
               w-80 sm:w-96
               bg-[var(--color-surface)]/98 backdrop-blur-sm
               border border-[var(--color-border)]
-              rounded-xl shadow-lg
-              p-4
+              rounded-[var(--radius)] shadow-lg
+              p-6
               origin-top-right
             "
           >
@@ -233,7 +233,7 @@ export const SongUploader = memo(function SongUploader({
             {/* Upload area */}
             <div
               class={`
-                border-2 border-dashed rounded-lg p-6 mb-3
+                border border-dashed rounded-[var(--radius)] p-6 mb-4
                 text-center cursor-pointer
                 transition-all duration-150
                 ${

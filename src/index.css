@@ -32,6 +32,9 @@
 
   /* Shadows */
   --shadow-tooltip: 0 4px 20px rgba(0, 0, 0, 0.5);
+
+  /* Radius */
+  --radius: 0.5rem;
 }
 
 /* Base Styles */
