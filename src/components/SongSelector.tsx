@@ -99,7 +99,7 @@ export const SongSelector = memo(function SongSelector({
       {/* Dropdown menu */}
       <div
         class={`
-          absolute z-50 mt-2 right-0 sm:left-0 sm:right-auto w-full min-w-[50px]
+          absolute z-50 mt-2 right-0 sm:left-0 sm:right-auto w-full min-w-[275px]
           max-h-60 overflow-auto
           bg-[var(--color-surface)]/95 backdrop-blur-sm
           border border-[var(--color-border)]
