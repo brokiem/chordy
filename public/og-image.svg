@@ -1,0 +1,31 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+  
+  <!-- Centered logo group -->
+  <g transform="translate(480, 175)">
+    <!-- Logo icon scaled up -->
+    <g transform="scale(6)">
+      <path
+        d="M14 3C14 3 8 8 8 14C8 17.5 10 21 14 25C18 21 20 17.5 20 14C20 8 14 3 14 3Z"
+        stroke="#60a5fa"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <circle cx="14" cy="14" r="2" fill="#60a5fa" />
+      <path
+        d="M14 8V10M14 18V20M10 14H12M16 14H18"
+        stroke="#60a5fa"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      />
+    </g>
+  </g>
+  
+  <!-- App name -->
+  <text x="600" y="480" font-family="Inter, system-ui, sans-serif" font-size="72" font-weight="700" fill="#e5e5e5" text-anchor="middle">Chordy</text>
+  
+  <!-- Tagline -->
+  <text x="600" y="540" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="400" fill="#737373" text-anchor="middle">Beautiful chord charts for musicians</text>
+</svg>
