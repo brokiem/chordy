@@ -26,7 +26,7 @@ export const LyricsLine = memo(function LyricsLine({ line }: LyricsLineProps) {
   let prevEndPosition = 0;
 
   return (
-    <div class="leading-relaxed mb-1 mt-2">
+    <div class="leading-relaxed mb-1.5 mt-2.5">
       {/* Chords row */}
       {sortedChords.length > 0 && (
         <div

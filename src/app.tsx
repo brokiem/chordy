@@ -98,7 +98,11 @@ function AppContent() {
 
       {/* Main content */}
       <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-32">
-        {selectedSong && <SongViewer song={selectedSong} />}
+        {selectedSong && (
+          <div key={selectedSong.id} class="animate-song-in">
+            <SongViewer song={selectedSong} />
+          </div>
+        )}
       </main>
 
       {/* Chord tooltip (rendered via portal) */}
@@ -132,3 +136,4 @@ export function App() {
     </ToastProvider>
   );
 }
+
